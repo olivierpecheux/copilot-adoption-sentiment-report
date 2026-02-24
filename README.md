@@ -6,7 +6,7 @@
 
 A Power BI report that combines **Microsoft 365 Copilot usage data** with **employee survey sentiment** to give you a complete picture of Copilot adoption, satisfaction, and self-reported time savings across your organization.
 
-### 📥 [Download or Clone this Repository](#-getting-started)
+### 📥 [Download the Template (.pbit)](M365%20Copilot%20-%20Adoption%20and%20Sentiment.pbit)
 
 ---
 
@@ -22,9 +22,9 @@ Start here. Get the big picture: how many users are licensed, how many are actua
 ---
 
 ### 2. 📝 Sentiment Analysis
-*How do employees feel about Copilot — and does it match their actual usage?*
+*How is Copilot perceived across your organization?*
 
-This is where usage meets sentiment. Correlate survey scores (satisfaction, productivity, speed, readiness) with actual Copilot activity. The scatter plot reveals whether high-usage employees are also the most satisfied — and surfaces pockets where sentiment lags behind usage (or vice versa). Break down by organization and usage tier to identify where enablement efforts should focus.
+Correlate survey scores with actual Copilot activity to identify organizational outliers across satisfaction themes — speed, quality, productivity, readiness, and agents. Break down by organization and usage tier to surface where perception diverges from reality and focus enablement efforts.
 
 ![Sentiment Analysis](images/sentiment-analysis.png)
 
@@ -33,16 +33,18 @@ This is where usage meets sentiment. Correlate survey scores (satisfaction, prod
 ### 3. 🗣️ Comments Analysis
 *What are employees actually saying about Copilot?*
 
-Go beyond scores to explore the free-text survey responses — how people repurpose saved time, their top use cases, barriers to adoption, and open-ended feedback. An AI-generated narrative summary highlights key themes. Toggle between comment categories and filter by usage rank to compare what power users say versus those still ramping up.
+Go beyond scores to explore the free-text survey responses — how people repurpose saved time, their top use cases, barriers to adoption, and open-ended feedback. Toggle between comment categories and filter by usage rank to compare what power users say versus those still ramping up.
+
+> **Note:** This page includes a Smart Narrative visual powered by **Copilot in Power BI**. To use it, you need a Power BI Pro or Premium Per User license and Copilot must be enabled in your tenant. Without it, the visual will be blank — the rest of the page works normally.
 
 ![Comments Analysis](images/comments-analysis.png)
 
 ---
 
 ### 4. ⌛ Saved Time Analysis
-*How much time are employees actually saving — and does it match the data?*
+*What do employees report about time savings?*
 
-Compare self-reported daily time savings against actual Copilot usage levels. The funnel chart shows the distribution of time-saved responses, while the table breaks down by usage tier to reveal whether heavy users truly report more savings. Cross-reference with average active days per week and calculated assisted hours to build your time-savings narrative.
+View self-reported daily time savings alongside actual Copilot usage levels. The funnel chart shows the distribution of time-saved responses, while the table breaks down by usage tier. Use this page to understand how time-saving perceptions vary across user segments and inform enablement priorities.
 
 ![Saved Time Analysis](images/saved-time-analysis.png)
 
@@ -61,7 +63,7 @@ The core data source. Download the Copilot Activity export from the Microsoft Ad
 
 **How to export:**
 1. Go to [admin.microsoft.com](https://admin.microsoft.com) → **Reports** → **Usage** → **Microsoft 365 Copilot**
-2. Select the **30-day** report period
+2. At the top of the page, select the **180-day** report period for maximum historical coverage
 3. Click **Export** (top right) to download the CSV
 4. The file will be named something like `CopilotActivityUserDetail_YYYY-MM-DD.csv`
 
@@ -75,24 +77,11 @@ To track trends over time, **export monthly** and combine/append the CSVs. The r
 
 Survey responses from Microsoft Forms (or any survey tool) exported as CSV. The file must include an `Email` column containing User Principal Names that match the Copilot Activity export.
 
-**Required columns:**
+See the [📋 Recommended Survey Questions](#-recommended-survey-questions) section below for the full question set and column mapping.
 
-| Column | Type | Description |
-|---|---|---|
-| `Email` | Text | User Principal Name (must match Copilot Activity UPNs) |
-| `SurveyDate` | Date | When the response was submitted |
-| `Overall satisfaction` | Integer (1-5) | Overall satisfaction with Copilot |
-| `Helps me work faster` | Integer (1-5) | Speed perception |
-| `Improves work quality` | Integer (1-5) | Quality perception |
-| `Improves productivity` | Integer (1-5) | Productivity perception |
-| `Benefits my role` | Integer (1-5) | Role relevance |
-| `Copilot readiness` | Integer (1-5) | Self-assessed readiness |
-| `Agents usage` | Integer (1-5) | Copilot agents familiarity |
-| `Time saved using Copilot` | Text | e.g. "About 15 minutes per day" |
-| `Time repurposed` | Text | How saved time is used |
-| `Use cases` | Text | Most valuable use cases |
-| `Barriers to adoption` | Text | Adoption blockers |
-| `What else?` | Text | Additional comments |
+> **Tip — Mapping your existing survey:** If you already have a Copilot survey with different column names, you can use the following prompt with Copilot Chat to generate a mapping script:
+>
+> *"I have a survey CSV with these columns: [paste your column headers]. I need to map them to these required columns: Email, SurveyDate, Overall satisfaction, Helps me work faster, Improves work quality, Improves productivity, Benefits my role, Copilot readiness, Agents usage, Time saved using Copilot, Time repurposed, Use cases, Barriers to adoption, What else?. Generate a Python or Power Query script to rename and reformat my file."*
 
 > The `Email` column is automatically detected and renamed internally for the join with usage data.
 
@@ -173,6 +162,10 @@ This version is designed for Admin Center (MAC) exports. For Viva Insights (Copi
 
 Yes. The Admin Center export only provides total prompts and active days — not per-feature actions. For feature-level detail, use Viva Insights.
 
+**The Smart Narrative visual on the Comments page is blank**
+
+That visual is powered by Copilot in Power BI, which requires a Power BI Pro or Premium Per User license and must be enabled by your tenant admin. Without it, the visual won't render — but the rest of the page (table, slicers) works normally.
+
 </details>
 
 ---
@@ -185,6 +178,31 @@ Yes. The Admin Center export only provides total prompts and active days — not
 
 ---
 
+## 📋 Recommended Survey Questions
+
+This report is designed around a specific survey structure. You can find the full question set in [`Recommended Copilot Survey.csv`](Questions/Recommended%20Copilot%20Survey.csv) — ready to import into Microsoft Forms or any survey tool.
+
+| # | Label | Type | Question | Scale / Options |
+|---|---|---|---|---|
+| 1 | `Overall satisfaction` | Rating | How satisfied are you with the overall Microsoft 365 Copilot experience? | Very dissatisfied (1) – Very satisfied (5) |
+| 2 | `Helps me work faster` | Rating + Comment | Using Copilot allows me to complete tasks faster. | Strongly disagree (1) – Strongly agree (5) |
+| 3 | `Improves work quality` | Rating + Comment | Using Copilot helps improve the quality of my work or output. | Strongly disagree (1) – Strongly agree (5) |
+| 4 | `Improves productivity` | Rating + Comment | When using Copilot, I am more productive. | Strongly disagree (1) – Strongly agree (5) |
+| 5 | `Benefits my role` | Rating + Comment | I see ongoing value in using M365 Copilot in my everyday work. | Strongly disagree (1) – Strongly agree (5) |
+| 6 | `Copilot readiness` | Rating + Comment | I have the help and understanding required to make Copilot work for me. | Strongly disagree (1) – Strongly agree (5) |
+| 7 | `Agents usage` | Rating + Comment | How satisfied are you with the Copilot agents? | Strongly disagree (1) – Strongly agree (5) |
+| 8 | `Time saved using Copilot` | Multi-choice | On average, Copilot helps me save… | No time saved (0 minutes) / About 5 min / 10 min / 15 min / 20 min / 30 min / 45 min / 1 hour or more per day |
+| 9 | `Time repurposed` | Comment | How do you repurpose your saved time? Please provide specific examples. | Free text |
+| 10 | `Use cases` | Comment | What have been the most valuable use cases for M365 Copilot in your day-to-day work? | Free text |
+| 11 | `Barriers to adoption` | Comment | What barriers, if any, are there to your ability to effectively use Copilot? | Free text |
+| 12 | `What else?` | Comment | What else would you like to share about using Copilot? | Free text |
+
+> **Important:** Your survey **must** include an `Email` field that captures the respondent's User Principal Name (UPN). In Microsoft Forms, use the *"Record name"* setting or add a required email question. The UPN must match the format in the Copilot Activity export (e.g. `user@contoso.com`).
+
+The `Label` column maps directly to the CSV column headers expected by the report. If your survey uses different question text, rename the columns in your export to match these labels.
+
+---
+
 ## 📝 License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -193,4 +211,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 💬 Feedback
 
-Found a bug or have a feature request? Open an issue or contact [opecheux@microsoft.com](mailto:opecheux@microsoft.com).
+Found a bug or have a feature request? Contact [opecheux@microsoft.com](mailto:opecheux@microsoft.com).
