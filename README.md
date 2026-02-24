@@ -1,4 +1,4 @@
-# M365 Copilot — Adoption & Sentiment Report
+# <img src="images/logo.png" alt="" width="32" height="32" /> M365 Copilot — Adoption & Sentiment Report
 
 ![Version](https://img.shields.io/badge/version-1.0-blue)
 ![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20Project-yellow)
