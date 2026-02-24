@@ -1,107 +1,85 @@
-<p align="center">
-  <img src="docs/images/logo.png" alt="M365 Copilot Analytics" width="120"/>
-</p>
+# M365 Copilot — Adoption & Sentiment Report
 
-<h1 align="center">M365 Copilot — Adoption & Sentiment Report</h1>
+![Version](https://img.shields.io/badge/version-1.0-blue)
+![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20Project-yellow)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-<p align="center">
-  A Power BI report that combines <strong>Microsoft 365 Copilot usage data</strong> with <strong>employee survey sentiment</strong> to give you a complete picture of Copilot adoption across your organization.
-</p>
+A Power BI report that combines **Microsoft 365 Copilot usage data** with **employee survey sentiment** to give you a complete picture of Copilot adoption, satisfaction, and self-reported time savings across your organization.
 
-<p align="center">
-  <a href="#-quick-start">Quick Start</a> •
-  <a href="#-data-sources">Data Sources</a> •
-  <a href="#-report-pages">Report Pages</a> •
-  <a href="#-setup-guide">Setup Guide</a> •
-  <a href="#-faq">FAQ</a>
-</p>
+### 📥 [Download or Clone this Repository](#-getting-started)
 
 ---
 
-## 📊 Report Pages
+## 📊 What This Report Covers
 
-### 📈 Adoption Overview
+### 1. 📈 Adoption Overview
+*How is your Copilot adoption trending across user segments?*
 
-Track Copilot usage trends across your organization — active users, weekly actions, and usage distribution by department and user segment.
+Start here. Get the big picture: how many users are licensed, how many are actually using Copilot, and how that's trending month over month. Each column shows the average Copilot prompts for that period. Usage is broken down by organization and by usage tier (Bottom 25% through Top 10%) so you can see whether adoption is broad or concentrated.
 
-<!-- TODO: Add screenshot -->
-![Adoption Overview](docs/images/adoption-overview.png)
-
-### 📝 Sentiment Analysis
-
-Correlate survey scores (satisfaction, productivity, readiness) with actual Copilot usage. See how sentiment differs across usage tiers and organizational units.
-
-<!-- TODO: Add screenshot -->
-![Sentiment Analysis](docs/images/sentiment-analysis.png)
-
-### 🗣️ Comments Analysis
-
-Explore free-text survey responses — use cases, barriers to adoption, and how employees repurpose saved time. Powered by AI-generated narrative summaries.
-
-<!-- TODO: Add screenshot -->
-![Comments Analysis](docs/images/comments-analysis.png)
-
-### ⌛ Saved Time Analysis
-
-Compare self-reported time savings against actual usage patterns. Break down by usage rank to understand the ROI story across user segments.
-
-<!-- TODO: Add screenshot -->
-![Saved Time Analysis](docs/images/saved-time-analysis.png)
+![Adoption Overview](images/adoption-overview.png)
 
 ---
 
-## 🚀 Quick Start
+### 2. 📝 Sentiment Analysis
+*How do employees feel about Copilot — and does it match their actual usage?*
 
-1. **Download** or clone this repository
-2. Open `M365 Copilot - Adoption & Sentiment.pbip` in **Power BI Desktop** (February 2025 or later)
-3. Set the three file parameters (see [Setup Guide](#-setup-guide))
-4. Click **Refresh**
+This is where usage meets sentiment. Correlate survey scores (satisfaction, productivity, speed, readiness) with actual Copilot activity. The scatter plot reveals whether high-usage employees are also the most satisfied — and surfaces pockets where sentiment lags behind usage (or vice versa). Break down by organization and usage tier to identify where enablement efforts should focus.
+
+![Sentiment Analysis](images/sentiment-analysis.png)
 
 ---
 
-## 📁 Data Sources
+### 3. 🗣️ Comments Analysis
+*What are employees actually saying about Copilot?*
 
-This report uses **3 CSV files** configured via Power BI parameters:
+Go beyond scores to explore the free-text survey responses — how people repurpose saved time, their top use cases, barriers to adoption, and open-ended feedback. An AI-generated narrative summary highlights key themes. Toggle between comment categories and filter by usage rank to compare what power users say versus those still ramping up.
 
-| Parameter | Source | Required | Description |
-|---|---|---|---|
-| **Raw Survey Data** | Microsoft Forms / survey tool | Optional | Survey responses with an `Email` column (UPN) plus Likert-scale scores and free-text comments |
-| **Copilot Activity (MAC)** | Microsoft Admin Center | ✅ Required | Copilot usage export from **Reports > Usage > M365 Copilot** |
-| **User Details (Entra)** | Microsoft Entra admin center | Optional | User list export adding display names and organization (companyName) |
+![Comments Analysis](images/comments-analysis.png)
 
-### How to export each file
+---
+
+### 4. ⌛ Saved Time Analysis
+*How much time are employees actually saving — and does it match the data?*
+
+Compare self-reported daily time savings against actual Copilot usage levels. The funnel chart shows the distribution of time-saved responses, while the table breaks down by usage tier to reveal whether heavy users truly report more savings. Cross-reference with average active days per week and calculated assisted hours to build your time-savings narrative.
+
+![Saved Time Analysis](images/saved-time-analysis.png)
+
+---
 
 <details>
-<summary><strong>Copilot Activity (MAC)</strong> — Microsoft Admin Center</summary>
+<summary><strong>🔌 Getting Started</strong></summary>
 
+This report uses **3 CSV files** — one required, two optional — loaded via Power BI parameters.
+
+### Step 1 — Get your data
+
+#### Copilot Activity (MAC) — Required
+
+The core data source. Download the Copilot Activity export from the Microsoft Admin Center.
+
+**How to export:**
 1. Go to [admin.microsoft.com](https://admin.microsoft.com) → **Reports** → **Usage** → **Microsoft 365 Copilot**
 2. Select the **30-day** report period
 3. Click **Export** (top right) to download the CSV
 4. The file will be named something like `CopilotActivityUserDetail_YYYY-MM-DD.csv`
 
-> **Important:** To get real user names (not hashed), go to **Settings** → **Org settings** → **Reports** and uncheck *"Display concealed user, group, and site names in all reports"*.
+> **Important:** To get real user names (not hashed), go to **Settings** → **Org settings** → **Reports** and uncheck *"Display concealed user, group, and site names in all reports"*. Wait 48 hours, then re-export.
 
-</details>
+To track trends over time, **export monthly** and combine/append the CSVs. The report will automatically detect multiple `Report Refresh Date` values and show month-over-month trends.
 
-<details>
-<summary><strong>User Details (Entra)</strong> — Microsoft Entra admin center</summary>
+![Admin Center Export](images/admin-center-export.png)
 
-1. Go to [entra.microsoft.com](https://entra.microsoft.com) → **Users** → **All users**
-2. Click **Download users** → **Download**
-3. The export includes `userPrincipalName`, `displayName`, and `companyName`
+#### Raw Survey Data — Optional
 
-> The `companyName` field is used as the Organization attribute. If it's empty in your tenant, you can manually add a column or use a different Entra attribute.
+Survey responses from Microsoft Forms (or any survey tool) exported as CSV. The file must include an `Email` column containing User Principal Names that match the Copilot Activity export.
 
-</details>
-
-<details>
-<summary><strong>Raw Survey Data</strong> — Microsoft Forms or any survey tool</summary>
-
-Export your survey responses as CSV. The file must include:
+**Required columns:**
 
 | Column | Type | Description |
 |---|---|---|
-| `Email` | Text | User Principal Name (must match the Copilot Activity UPNs) |
+| `Email` | Text | User Principal Name (must match Copilot Activity UPNs) |
 | `SurveyDate` | Date | When the response was submitted |
 | `Overall satisfaction` | Integer (1-5) | Overall satisfaction with Copilot |
 | `Helps me work faster` | Integer (1-5) | Speed perception |
@@ -116,158 +94,103 @@ Export your survey responses as CSV. The file must include:
 | `Barriers to adoption` | Text | Adoption blockers |
 | `What else?` | Text | Additional comments |
 
-> The `Email` column is automatically detected and renamed to `PersonId` internally for the join with Copilot Activity data.
+> The `Email` column is automatically detected and renamed internally for the join with usage data.
+
+#### User Details (Entra) — Optional
+
+Adds organization (department) data and display names from Entra ID.
+
+**How to export:**
+1. Go to [entra.microsoft.com](https://entra.microsoft.com) → **Users** → **All users**
+2. Click **Download users** → **Download**
+3. The export includes `userPrincipalName`, `displayName`, and `companyName`
+
+> The `companyName` field maps to the Organization attribute. If it's empty in your tenant, you can manually populate it or add a column to the CSV.
+
+### Step 2 — Open the report
+
+1. Clone or download this repository
+2. Double-click `M365 Copilot - Adoption & Sentiment.pbip` to open in **Power BI Desktop** (February 2025 or later)
+3. When prompted, configure the three parameters:
+
+| Parameter | What to enter |
+|---|---|
+| **Raw Survey Data** | Full file path to your survey CSV (or `/` to skip) |
+| **Copilot Activity (MAC)** | Full file path to the Admin Center export CSV |
+| **User Details (Entra)** | Full file path to the Entra user export CSV (or `/` to skip) |
+
+> ⚠️ Do **not** wrap paths in quotes. Use the full path, e.g. `C:\Data\CopilotActivity.csv`
+
+4. Click **Load** — the data will refresh automatically
+
+![Parameters](images/parameters.png)
 
 </details>
 
 ---
 
-## 🔧 Setup Guide
+<details>
+<summary><strong>📐 How Usage Rank Works</strong></summary>
 
-### Prerequisites
+The report classifies every user into a **Usage Rank** tier based on their average Copilot actions across the full data period:
 
-- **Power BI Desktop** — February 2025 release or later (PBIP format support required)
-- **Copilot Activity data** — At least one monthly export from Microsoft Admin Center
-- **Survey data** (optional) — CSV with the schema described above
-
-### Step-by-step
-
-1. **Clone or download** this repository
-
-2. **Open the project** — Double-click `M365 Copilot - Adoption & Sentiment.pbip`
-
-3. **Configure parameters** — In Power BI Desktop, go to **Home** → **Transform data** → **Edit parameters**:
-
-   <!-- TODO: Add screenshot of parameter dialog -->
-   ![Parameters](docs/images/parameters.png)
-
-   | Parameter | What to enter |
-   |---|---|
-   | Raw Survey Data | Full file path to your survey CSV (or `/` to skip) |
-   | Copilot Activity (MAC) | Full file path to the Admin Center export CSV |
-   | User Details (Entra) | Full file path to the Entra user export CSV (or `/` to skip) |
-
-   > ⚠️ Do **not** wrap paths in quotes. Use the full path, e.g. `C:\Data\CopilotActivity.csv`
-
-4. **Refresh the data** — Click **Refresh** on the Home ribbon
-
-5. **Explore the report** — Navigate through the 4 tabs
-
-### Loading multiple months
-
-To track adoption trends over time, **export the Copilot Activity report monthly** from the Admin Center and append/combine the CSVs. The report will automatically detect multiple `Report Refresh Date` values and show month-over-month trends.
-
----
-
-## 🏗️ Project Structure
-
-```
-M365 Copilot - Adoption & Sentiment.pbip
-M365 Copilot - Adoption & Sentiment.Report/
-  └── definition/
-      └── pages/              ← Report page definitions (4 pages)
-M365 Copilot - Adoption & Sentiment.SemanticModel/
-  └── definition/
-      ├── expressions.tmdl    ← Parameters (3 file paths)
-      ├── model.tmdl          ← Model configuration
-      ├── relationships.tmdl  ← Table relationships
-      └── tables/
-          ├── Table.tmdl                    ← Main fact table (Copilot Activity + Entra join)
-          ├── Table - Survey Sentiment.tmdl ← Survey data table
-          ├── Calendar.tmdl                 ← Date dimension
-          └── ...                           ← Toggle tables, slicers, helper tables
-```
-
----
-
-## 🔗 Key Relationships
-
-```
-Table.PersonId ─────────── Table - Survey Sentiment.PersonId
-Table.Date ─────────────── Calendar.Date
-```
-
-- **PersonId** contains the User Principal Name (email), lowercased for consistent matching
-- The join between usage and survey data happens on this key
-- Organization data comes from the Entra export (`companyName` → `Organization`)
-
----
-
-## 📐 Key Measures
-
-| Measure | Description |
+| Tier | Description |
 |---|---|
-| `Number of Active Users` | Users with at least 1 Copilot action |
-| `% Active Copilot Users` | Active / Enabled users ratio |
-| `Average Weekly Actions` | Mean Copilot prompts per user per period |
-| `Average Weekly Active Days` | Mean active days per user |
-| `Usage Rank` | Quintile classification (Top 10%, 75-90%, 50-75%, 25-50%, Bottom 25%) |
-| `Survey - Metric Value` | Dynamic survey score based on selected question |
-| `Self-reported Daily Time Saved` | Average from survey time-saved responses |
-| `Favorability (% of 4 or 5 Scores)` | Net positive sentiment rate |
+| **5. Top 10% Users** | The most active Copilot users — power users and champions |
+| **4. 75-90% Users** | Strong, consistent users |
+| **3. 50-75% Users** | Moderate users — the middle of the bell curve |
+| **2. 25-50% Users** | Light users — occasional or task-specific |
+| **1. Bottom 25% Users** | Minimal usage — likely need enablement support |
+
+This classification is used throughout the report to correlate usage intensity with sentiment, time savings, and qualitative feedback. It's calculated as a percentile rank across all users with a Copilot license.
+
+**Why it matters:** The most powerful insight in this report comes from comparing tiers — do the Top 10% report higher satisfaction? Are the Bottom 25% flagging specific barriers? This drives targeted adoption actions.
+
+</details>
 
 ---
-
-## ❓ FAQ
 
 <details>
-<summary><strong>The Admin Center export shows hashed user names — how do I fix this?</strong></summary>
+<summary><strong>❓ FAQ</strong></summary>
+
+**The Admin Center export shows hashed user names — how do I fix this?**
 
 Go to **Microsoft 365 Admin Center** → **Settings** → **Org settings** → **Reports** and uncheck *"Display concealed user, group, and site names in all reports"*. Wait 48 hours, then re-export.
 
-</details>
+**Organization column is empty — what's wrong?**
 
-<details>
-<summary><strong>Organization column is empty — what's wrong?</strong></summary>
+The Organization data comes from the `companyName` field in the Entra export. If it's not populated in your tenant, you can either populate it in Entra ID, manually add an Organization column to the CSV, or use a different attribute.
 
-The Organization data comes from the `companyName` field in the Entra export. If this field is not populated in your tenant, you can either:
-- Populate it in Entra ID (Azure AD)
-- Manually add an Organization column to the Entra CSV
-- Use a different data source for org mapping
-
-</details>
-
-<details>
-<summary><strong>Survey data isn't joining with usage data</strong></summary>
+**Survey data isn't joining with usage data**
 
 Ensure the `Email` column in your survey CSV contains the same UPN format as the Admin Center export (e.g. `user@contoso.com`). The report automatically lowercases and trims both sides for matching.
 
-</details>
+**Can I use this with Viva Insights data instead?**
 
-<details>
-<summary><strong>Can I use this with Viva Insights data instead?</strong></summary>
+This version is designed for Admin Center (MAC) exports. For Viva Insights (Copilot Dashboard or custom person query) with feature-level breakdowns and native Assisted Hours, see the [Adoption & Impact Report (Lite)](https://github.com/microsoft/copilot-adoption-impact-report).
 
-This version of the report is designed for Admin Center (MAC) exports. For Viva Insights (Copilot Dashboard or custom person query), see the original report which supports both CSV and DirectQuery modes.
+**Feature-level breakdowns show 0 — is that expected?**
 
-</details>
-
-<details>
-<summary><strong>Feature-level breakdowns show 0 — is that expected?</strong></summary>
-
-Yes. The Admin Center export only provides total prompts and active days — it does not include per-feature action breakdowns (e.g. "Draft Word document", "Summarize email"). These measures exist for backward compatibility but will return 0 with MAC data. For feature-level detail, use Viva Insights.
+Yes. The Admin Center export only provides total prompts and active days — not per-feature actions. For feature-level detail, use Viva Insights.
 
 </details>
 
 ---
 
-## 📦 Sample Data
+## 🔗 Related Templates & Tools
 
-The `Sample data/` folder includes example files you can use to test the report:
-
-| File | Description |
-|---|---|
-| `MAC - Copilot Activity - export.csv` | 50 users × 6 months of Copilot activity |
-| `Copilot Survey - raw data (email).csv` | 50 survey responses correlated with usage |
-| `Entra - Users list - export.csv` | User directory with departments |
+- [Copilot Adoption & Impact Report (Lite)](https://github.com/microsoft/copilot-adoption-impact-report) — ROI analysis & feature-level usage with Viva Insights or Dashboard export
+- [Super User Adoption Analysis](https://github.com/microsoft/DecodingSuperUsage) — Deep dive into super user patterns
+- [AI-in-One Dashboard](https://github.com/microsoft/AI-in-One-Dashboard) — Unified AI analytics
 
 ---
 
 ## 📝 License
 
-This project is provided as-is for internal analytics purposes.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-<p align="center">
-  Built with ❤️ for Copilot adoption teams
-</p>
+## 💬 Feedback
+
+Found a bug or have a feature request? Open an issue or contact [opecheux@microsoft.com](mailto:opecheux@microsoft.com).
