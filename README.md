@@ -71,8 +71,6 @@ The core data source. Download the Copilot Activity export from the Microsoft Ad
 
 To track trends over time, **export monthly** and combine/append the CSVs. The report will automatically detect multiple `Report Refresh Date` values and show month-over-month trends.
 
-![Admin Center Export](images/admin-center-export.png)
-
 #### Raw Survey Data — Optional
 
 Survey responses from Microsoft Forms (or any survey tool) exported as CSV. The file must include an `Email` column containing User Principal Names that match the Copilot Activity export.
