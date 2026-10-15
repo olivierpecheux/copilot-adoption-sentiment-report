@@ -214,9 +214,3 @@ The `Label` column maps directly to the CSV column headers expected by the repor
 ## 📝 License
 
 This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 💬 Feedback
-
-Found a bug or have a feature request? Contact [opecheux@microsoft.com](mailto:opecheux@microsoft.com).
