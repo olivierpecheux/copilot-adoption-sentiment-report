@@ -10,6 +10,16 @@ A Power BI report that combines **Microsoft 365 Copilot usage data** with **empl
 
 ---
 
+## 🎬 Watch the overview
+
+A short tour — how to connect Copilot usage data with employee survey feedback, and read adoption, sentiment, and saved-time together.
+
+[![Watch the overview on YouTube](https://img.youtube.com/vi/iPgRcEZqmr0/maxresdefault.jpg)](https://youtu.be/iPgRcEZqmr0)
+
+**▶ [Watch on YouTube](https://youtu.be/iPgRcEZqmr0)**
+
+---
+
 ## 📊 What This Report Covers
 
 ### 1. 📈 Adoption Overview
